@@ -1,0 +1,30 @@
+
+name: Shopping Cart CI
+
+on:
+  push:
+    branches: [master, feature-shopping-cart]
+  pull_request:
+    branches: [master]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check JavaScript syntax
+        run: node --check script.js
+
+      - name: Verify application files
+        run: |
+          test -f index.html
+          test -f style.css
+          test -f script.js
